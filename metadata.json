@@ -1,5 +1,5 @@
 {
-  "name": "Mestre do Arq Soft",
-  "description": "Um aplicativo de questionário interativo focado em Arquitetura de software",
+  "name": "Mestre dos Bancos de Dados",
+  "description": "Um aplicativo de questionário interativo focado em SQL, NoSQL e diferentes modelos de bancos de dados",
   "requestFramePermissions": []
 }

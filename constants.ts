@@ -2,579 +2,1024 @@
 import { Question } from './types';
 
 export const QUIZ_DATABASE: Question[] = [
-  // --- DESIGN PATTERNS (5 Questões) ---
+  // --- SQL vs NoSQL (5 Questões) ---
   {
-    id: 'dp1',
-    topic: 'Design Patterns',
-    question: 'Qual a definição principal do padrão criacional "Singleton"?',
+    id: 'sql1',
+    topic: 'SQL vs NoSQL',
+    question: 'Qual a principal diferença na estrutura de dados entre SQL e NoSQL?',
     options: [
-      'Garante que uma classe tenha múltiplas instâncias distribuídas em cluster.',
-      'Garante que uma classe tenha apenas uma instância e fornece um ponto global de acesso a ela.',
-      'Permite a criação de objetos sem especificar a classe exata do objeto a ser criado.',
-      'Define uma dependência um-para-muitos entre objetos para notificação de mudanças.',
-      'Converte a interface de uma classe em outra interface esperada pelos clientes.'
+      'SQL usa tabelas relacionais com esquemas fixos; NoSQL permite esquemas flexíveis (documentos, grafos, etc).',
+      'SQL é apenas para dados numéricos; NoSQL é para texto.',
+      'SQL não suporta transações; NoSQL é focado em ACID.',
+      'SQL é sempre mais rápido que NoSQL em qualquer cenário.',
+      'NoSQL é uma linguagem de programação, enquanto SQL é um banco de dados.'
     ],
-    correctAnswer: 1,
-    explanation: 'O Singleton restringe a instanciação de uma classe a um único objeto "eterno" durante o ciclo de vida da aplicação.'
+    correctAnswer: 0,
+    explanation: 'Bancos SQL são relacionais e exigem um esquema pré-definido. Bancos NoSQL são não-relacionais e oferecem flexibilidade para diferentes formatos de dados.'
   },
   {
-    id: 'dp2',
-    topic: 'Design Patterns',
-    question: 'O padrão comportamental "Strategy" serve primordialmente para:',
+    id: 'sql2',
+    topic: 'SQL vs NoSQL',
+    question: 'O que significa o termo "Escalabilidade Horizontal" no contexto de NoSQL?',
     options: [
-      'Encapsular uma solicitação como um objeto, permitindo parametrizar clientes.',
-      'Definir uma família de algoritmos, encapsular cada um deles e torná-los intercambiáveis.',
-      'Garantir que um objeto possa ser clonado sem depender de suas classes concretas.',
-      'Prover um substituto ou marcador de lugar para outro objeto para controlar o acesso a ele.',
-      'Separar a construção de um objeto complexo de sua representação.'
+      'Aumentar o poder de processamento (CPU/RAM) de um único servidor.',
+      'Adicionar mais servidores ao cluster para distribuir a carga de dados.',
+      'Mudar o banco de dados de local para a nuvem.',
+      'Reduzir o tamanho das tabelas para economizar espaço.',
+      'Converter todas as tabelas em arquivos CSV.'
     ],
     correctAnswer: 1,
-    explanation: 'O Strategy permite que o algoritmo varie independentemente dos clientes que o utilizam, através de composição.'
+    explanation: 'Escalabilidade horizontal (scale-out) é a capacidade de adicionar mais máquinas ao sistema, uma característica forte de muitos bancos NoSQL.'
   },
   {
-    id: 'dp3',
-    topic: 'Design Patterns',
-    question: 'Qual padrão é utilizado para permitir que interfaces incompatíveis trabalhem juntas?',
+    id: 'sql3',
+    topic: 'SQL vs NoSQL',
+    question: 'Qual propriedade é garantida por bancos SQL tradicionais através do acrônimo ACID?',
     options: [
-      'Observer',
-      'Factory Method',
-      'Adapter',
-      'Facade',
-      'Mediator'
+      'Agilidade, Conectividade, Inteligência e Disponibilidade.',
+      'Atomicidade, Consistência, Isolamento e Durabilidade.',
+      'Acesso, Controle, Integração e Desempenho.',
+      'Algoritmo, Código, Interface e Dados.',
+      'Apenas Consistência e Disponibilidade.'
+    ],
+    correctAnswer: 1,
+    explanation: 'ACID garante que as transações de banco de dados sejam processadas de forma confiável.'
+  },
+  {
+    id: 'sql4',
+    topic: 'SQL vs NoSQL',
+    question: 'Em qual cenário um banco SQL é geralmente preferível a um NoSQL?',
+    options: [
+      'Quando os dados são altamente não estruturados e mudam constantemente.',
+      'Quando há necessidade de consultas complexas com múltiplos JOINs e integridade referencial rigorosa.',
+      'Quando o volume de dados é massivo e exige escrita em milissegundos em escala global.',
+      'Para armazenar logs simples de sensores IoT sem relação entre si.',
+      'Quando não se sabe qual será a estrutura dos dados no futuro.'
+    ],
+    correctAnswer: 1,
+    explanation: 'SQL brilha em cenários onde a consistência e as relações complexas entre dados são fundamentais.'
+  },
+  {
+    id: 'sql5',
+    topic: 'SQL vs NoSQL',
+    question: 'O Teorema CAP afirma que um sistema distribuído pode garantir apenas duas de três propriedades. Quais são elas?',
+    options: [
+      'Custo, Agilidade e Performance.',
+      'Consistência, Disponibilidade e Tolerância a Partições.',
+      'Capacidade, Acesso e Protocolo.',
+      'Código, Arquitetura e Processamento.',
+      'Conexão, Autenticação e Permissão.'
+    ],
+    correctAnswer: 1,
+    explanation: 'O Teorema CAP (Consistency, Availability, Partition Tolerance) é fundamental para entender as escolhas em bancos NoSQL distribuídos.'
+  },
+
+  // --- Banco de Documentos (5 Questões) ---
+  {
+    id: 'doc1',
+    topic: 'Banco de Documentos',
+    question: 'Qual o formato de armazenamento mais comum em bancos de documentos como o MongoDB?',
+    options: [
+      'Tabelas e Colunas.',
+      'JSON ou BSON (Binary JSON).',
+      'Arquivos de texto simples (.txt).',
+      'Planilhas Excel.',
+      'Código binário proprietário ilegível.'
+    ],
+    correctAnswer: 1,
+    explanation: 'Bancos de documentos armazenam dados em estruturas flexíveis semelhantes a objetos, geralmente JSON ou variações como BSON.'
+  },
+  {
+    id: 'doc2',
+    topic: 'Banco de Documentos',
+    question: 'O que caracteriza a natureza "Schema-less" de um banco de documentos?',
+    options: [
+      'O banco não permite criar índices.',
+      'Documentos na mesma coleção podem ter campos e estruturas diferentes.',
+      'O banco não suporta nenhum tipo de consulta.',
+      'É obrigatório definir todos os campos antes de inserir o primeiro dado.',
+      'Os dados são salvos sem nenhuma organização lógica.'
+    ],
+    correctAnswer: 1,
+    explanation: 'Diferente do SQL, você não precisa definir uma estrutura rígida antes de inserir dados; cada documento pode ser único.'
+  },
+  {
+    id: 'doc3',
+    topic: 'Banco de Documentos',
+    question: 'Qual a principal vantagem de "Embutir" (Embedding) documentos em vez de usar referências?',
+    options: [
+      'Aumenta o tamanho do banco de dados desnecessariamente.',
+      'Melhora a performance de leitura ao evitar "joins" manuais na aplicação.',
+      'Torna o banco de dados relacional.',
+      'Impede que os dados sejam deletados.',
+      'Facilita a criação de triggers complexos.'
+    ],
+    correctAnswer: 1,
+    explanation: 'Embutir dados relacionados em um único documento permite recuperar todas as informações necessárias em uma única operação de I/O.'
+  },
+  {
+    id: 'doc4',
+    topic: 'Banco de Documentos',
+    question: 'Bancos de documentos são ideais para qual tipo de aplicação?',
+    options: [
+      'Sistemas financeiros que exigem transações ACID multi-tabela rigorosas.',
+      'Catálogos de produtos, perfis de usuários e sistemas de gerenciamento de conteúdo (CMS).',
+      'Análise de redes sociais complexas com milhões de conexões entre pessoas.',
+      'Sistemas de arquivos de baixo nível para sistemas operacionais.',
+      'Apenas para cache temporário de curto prazo.'
+    ],
+    correctAnswer: 1,
+    explanation: 'A flexibilidade de documentos é perfeita para dados que podem variar de item para item, como atributos de produtos.'
+  },
+  {
+    id: 'doc5',
+    topic: 'Banco de Documentos',
+    question: 'O que é uma "Coleção" (Collection) em um banco de documentos?',
+    options: [
+      'Um conjunto de servidores em cluster.',
+      'Um agrupamento de documentos, análogo a uma tabela no SQL.',
+      'Um índice de busca rápida.',
+      'Um backup de segurança.',
+      'Uma linguagem de consulta específica.'
+    ],
+    correctAnswer: 1,
+    explanation: 'Coleções agrupam documentos relacionados, embora não imponham um esquema rígido a eles.'
+  },
+  {
+    id: 'doc6',
+    topic: 'Banco de Documentos',
+    question: 'A principal vantagem dos Bancos de Dados de Documentos em relação à experiência do desenvolvedor está em:',
+    options: [
+      'A linguagem SQL ser padronizada para a manipulação de documentos complexos.',
+      'Utilizar JSON como formato nativo, o que se alinha à linguagem dos desenvolvedores.',
+      'Exigir a criação de um esquema rígido antes da inserção de qualquer dado novo.',
+      'Sua total dependência de joins complexos para a recuperação de informações úteis.',
+      'A necessidade de tradução complexa entre objetos da aplicação e tabelas do banco.'
+    ],
+    correctAnswer: 1,
+    explanation: 'Ao usar JSON, o banco de dados armazena os dados no mesmo formato que os desenvolvedores usam em seus códigos, eliminando a barreira de tradução.'
+  },
+  {
+    id: 'doc7',
+    topic: 'Banco de Documentos',
+    question: 'O modelo de documentos é especialmente vantajoso em ambientes de desenvolvimento ágil devido à sua característica de:',
+    options: [
+      'Manter o esquema do banco de dados estático e imutável ao longo do tempo de vida.',
+      'Brilhar em cenários onde a velocidade é sacrificada pela consistência extrema total.',
+      'Permitir que o esquema do banco acompanhe as rápidas mudanças nos requisitos do código.',
+      'Aumentar a complexidade da tradução de objetos complexos para o banco de dados.',
+      'Exigir a normalização rigorosa dos dados em várias tabelas para evitar redundância.'
     ],
     correctAnswer: 2,
-    explanation: 'O Adapter atua como um tradutor entre duas interfaces que não poderiam se conectar diretamente.'
+    explanation: 'A flexibilidade de esquema permite que a estrutura dos dados evolua junto com a aplicação, sem a necessidade de migrações de banco de dados custosas.'
   },
   {
-    id: 'dp4',
-    topic: 'Design Patterns',
-    question: 'O padrão "Observer" é comumente utilizado em quais cenários?',
+    id: 'doc8',
+    topic: 'Banco de Documentos',
+    question: 'Qual aspecto do modelo de Documentos é apontado como chave para a inovação rápida?',
     options: [
-      'Criação de objetos complexos passo a passo.',
-      'Sistemas orientados a eventos onde a mudança de estado de um objeto deve notificar outros.',
-      'Onde é necessário reduzir o consumo de memória compartilhando objetos.',
-      'Quando queremos evitar o acoplamento entre o remetente e o receptor de uma mensagem.',
-      'Para restaurar o estado de um objeto ao seu estado anterior.'
+      'A rigidez estrita do esquema que impede alterações acidentais nos dados salvos.',
+      'A total ausência de índices que simplifica a manutenção do servidor de banco.',
+      'A dependência de transações distribuídas complexas entre múltiplos nós de rede.',
+      'A flexibilidade na estrutura de dados que permite armazenar diversos formatos.',
+      'O uso exclusivo de linguagens de consulta procedurais para manipulação de dados.'
+    ],
+    correctAnswer: 3,
+    explanation: 'A capacidade de armazenar dados sem um esquema pré-definido permite que novas funcionalidades sejam implementadas sem alterar a estrutura do banco.'
+  },
+  {
+    id: 'doc9',
+    topic: 'Banco de Documentos',
+    question: 'O uso de JSON em Bancos de Dados de Documentos visa eliminar qual complexidade comum em bancos relacionais?',
+    options: [
+      'A necessidade de um esquema de tabelas bem definido para cada tipo de dado novo.',
+      'A eliminação de todos os tipos de chaves primárias e estrangeiras do sistema.',
+      'A tradução complexa entre a representação de objetos e o modelo de tabelas.',
+      'A manutenção de backups de dados em ambientes de produção de alta escala.',
+      'A dificuldade de instalar o sistema gerenciador de banco de dados no servidor.'
+    ],
+    correctAnswer: 2,
+    explanation: 'O "Impedance Mismatch" é resolvido quando o banco armazena os dados de forma semelhante à estrutura de objetos usada na programação.'
+  },
+  {
+    id: 'doc10',
+    topic: 'Banco de Documentos',
+    question: 'Para o engenheiro de software moderno que trabalha com Bancos de Dados de Documentos, qual habilidade é mandatória?',
+    options: [
+      'A manipulação avançada de procedimentos armazenados do tipo Stored Procedures.',
+      'O domínio de modelagem de dados exclusivamente relacional para todos os casos.',
+      'A capacidade de modelar dados usando o formato JSON de maneira eficiente.',
+      'A experiência em tuning de queries SQL complexas com múltiplos níveis de join.',
+      'A criação de triggers e views em ambientes distribuídos de alta disponibilidade.'
+    ],
+    correctAnswer: 2,
+    explanation: 'Como o JSON é o formato central, saber como estruturar documentos para performance e flexibilidade é essencial para o desenvolvedor.'
+  },
+  {
+    id: 'doc11',
+    topic: 'Banco de Documentos',
+    question: 'Em um Banco de Dados de Documentos, uma unidade básica de armazenamento de dados é tipicamente:',
+    options: [
+      'Uma tupla em uma tabela normalizada seguindo as regras de integridade rígida.',
+      'Um documento que contém todos os dados relacionados em uma única estrutura.',
+      'Um bloco de disco de tamanho fixo que armazena registros binários compactos.',
+      'Um registro espalhado por múltiplas tabelas que exige junções para ser lido.',
+      'Um índice B-tree sem dados associados que serve apenas para busca de chaves.'
     ],
     correctAnswer: 1,
-    explanation: 'O Observer define uma dependência onde, quando um objeto muda de estado, seus dependentes são avisados.'
+    explanation: 'O documento é a unidade atômica, permitindo que informações relacionadas sejam mantidas juntas, o que otimiza o acesso aos dados.'
   },
   {
-    id: 'dp5',
-    topic: 'Design Patterns',
-    question: 'Qual a característica do padrão "Factory Method"?',
+    id: 'doc12',
+    topic: 'Banco de Documentos',
+    question: 'Diferente dos bancos relacionais tradicionais, o Document Database geralmente possui:',
     options: [
-      'Ele utiliza herança para permitir que subclasses decidam qual classe instanciar.',
-      'Ele obriga o uso de reflexão computacional para criar objetos em runtime.',
-      'Ele garante que apenas objetos do tipo interface sejam retornados por métodos estáticos.',
-      'Ele proíbe a criação de objetos fora de um contexto de banco de dados.',
-      'Ele é um padrão arquitetural e não um padrão de design.'
+      'Schema-on-Write rígido que valida todos os campos antes da gravação no disco.',
+      'Um modelo sem esquema rígido ou com esquema flexível para os documentos.',
+      'Um único e obrigatório índice clusterizado que define a ordem física dos dados.',
+      'Apenas a capacidade de armazenar texto simples sem suporte a tipos complexos.',
+      'A necessidade de pré-definição de todas as chaves estrangeiras do sistema.'
+    ],
+    correctAnswer: 1,
+    explanation: 'A ausência de um esquema fixo (schema-less) é o que dá aos bancos de documentos sua característica flexibilidade e agilidade.'
+  },
+  {
+    id: 'doc13',
+    topic: 'Banco de Documentos',
+    question: 'A menção a requisitos que mudam toda semana sugere que o modelo de documentos se adapta melhor a:',
+    options: [
+      'Projetos com requisitos muito estáveis e maduros que não sofrem alterações.',
+      'Cenários onde a agilidade na alteração da estrutura de dados é importante.',
+      'Aplicações que só permitem a leitura de dados sem necessidade de atualização.',
+      'Estruturas de banco de dados que demoram muito para serem alteradas no disco.',
+      'Sistemas legados com esquemas totalmente normalizados em várias tabelas.'
+    ],
+    correctAnswer: 1,
+    explanation: 'Em metodologias ágeis, a capacidade de mudar o modelo de dados rapidamente sem quebrar o sistema é uma vantagem competitiva enorme.'
+  },
+  {
+    id: 'doc14',
+    topic: 'Banco de Documentos',
+    question: 'O que significa o Document Database falar a língua dos desenvolvedores JSON?',
+    options: [
+      'Exige que toda a aplicação seja escrita em JavaScript para funcionar no banco.',
+      'Indica que a estrutura de dados no banco é semelhante à estrutura de objetos.',
+      'Significa que apenas dados de texto podem ser armazenados no servidor de dados.',
+      'Implica que não é necessário nenhum tipo de servidor de banco de dados local.',
+      'Que a comunicação é feita exclusivamente por chamadas RPC de baixo nível.'
+    ],
+    correctAnswer: 1,
+    explanation: 'Isso significa que a representação mental do desenvolvedor sobre os dados coincide com a forma como o banco os armazena e recupera.'
+  },
+  {
+    id: 'doc15',
+    topic: 'Banco de Documentos',
+    question: 'A flexibilidade do modelo de Documentos é um fator chave para a inovação rápida porque:',
+    options: [
+      'Impede totalmente a evolução do esquema de dados ao longo do tempo de uso.',
+      'Exige um tempo de inatividade maior para qualquer alteração na estrutura base.',
+      'Facilita a adaptação do banco a novas funcionalidades sem grandes refatorações.',
+      'Limita o tamanho dos documentos a um valor muito pequeno para economizar RAM.',
+      'Torna a consistência eventual uma regra absoluta e imutável para todo o sistema.'
+    ],
+    correctAnswer: 2,
+    explanation: 'Novos campos podem ser adicionados a documentos individuais sem afetar o restante da coleção, permitindo iterações rápidas no produto.'
+  },
+
+  // --- Banco de Chave-Valor (5 Questões) ---
+  {
+    id: 'kv1',
+    topic: 'Banco de Chave-Valor',
+    question: 'Qual a principal característica de um banco de dados Chave-Valor como o Redis?',
+    options: [
+      'Armazena dados em tabelas complexas com chaves estrangeiras.',
+      'Associa uma chave única a um valor específico, funcionando como um dicionário gigante.',
+      'É usado apenas para armazenar imagens e vídeos.',
+      'Exige consultas SQL complexas para recuperar qualquer dado.',
+      'Não permite atualizações de dados após a inserção.'
+    ],
+    correctAnswer: 1,
+    explanation: 'É o modelo NoSQL mais simples, onde você recupera um valor fornecendo sua chave correspondente.'
+  },
+  {
+    id: 'kv2',
+    topic: 'Banco de Chave-Valor',
+    question: 'Bancos de Chave-Valor são frequentemente utilizados para:',
+    options: [
+      'Consultas analíticas complexas de BI.',
+      'Gerenciamento de sessões, cache e carrinhos de compras.',
+      'Armazenamento de longo prazo de registros históricos imutáveis.',
+      'Substituir completamente bancos relacionais em sistemas ERP.',
+      'Desenvolvimento de jogos 3D no lado do servidor.'
+    ],
+    correctAnswer: 1,
+    explanation: 'Devido à sua extrema velocidade de leitura e escrita, são perfeitos para dados temporários ou de acesso rápido.'
+  },
+  {
+    id: 'kv3',
+    topic: 'Banco de Chave-Valor',
+    question: 'O que significa um banco de dados ser "In-Memory"?',
+    options: [
+      'Ele armazena dados apenas no cérebro do desenvolvedor.',
+      'Os dados residem principalmente na memória RAM para acesso ultra-rápido.',
+      'O banco de dados esquece os dados assim que são lidos.',
+      'Ele usa apenas memória virtual do Windows.',
+      'Os dados são gravados em fitas magnéticas.'
+    ],
+    correctAnswer: 1,
+    explanation: 'Armazenar em RAM elimina a latência de busca em disco, tornando bancos como Redis extremamente performáticos.'
+  },
+  {
+    id: 'kv4',
+    topic: 'Banco de Chave-Valor',
+    question: 'Qual a limitação de bancos de Chave-Valor puros?',
+    options: [
+      'Não suportam chaves com mais de 10 caracteres.',
+      'Dificuldade em realizar consultas baseadas nos valores (sem conhecer a chave).',
+      'São muito lentos para operações de escrita.',
+      'Não podem ser instalados em servidores Linux.',
+      'Exigem hardware proprietário caro.'
+    ],
+    correctAnswer: 1,
+    explanation: 'Se você não tem a chave, buscar por um atributo dentro do valor geralmente exige percorrer todos os registros.'
+  },
+  {
+    id: 'kv5',
+    topic: 'Banco de Chave-Valor',
+    question: 'O recurso "TTL" (Time To Live) em bancos de Chave-Valor serve para:',
+    options: [
+      'Medir o tempo que o servidor está ligado.',
+      'Definir um tempo de expiração para que o dado seja deletado automaticamente.',
+      'Aumentar a vida útil do disco rígido.',
+      'Limitar o número de usuários conectados.',
+      'Calcular a velocidade da rede.'
+    ],
+    correctAnswer: 1,
+    explanation: 'TTL é essencial para gerenciar cache, garantindo que dados obsoletos sejam removidos automaticamente.'
+  },
+  {
+    id: 'kv6',
+    topic: 'Banco de Chave-Valor',
+    question: 'Qual é a principal característica que distingue a classe de bancos de dados NoSQL em relação aos bancos de dados tradicionais?',
+    options: [
+      'Adoção de uma estrutura rígida para definição de colunas e tipos de dados.',
+      'Foco exclusivo em operações de JOINs complexos para a consulta de dados.',
+      'Design projetado para modelos de dados específicos e quebra da rigidez de tabelas.',
+      'Utilização obrigatória de uma Primary Key indexada em estrutura de B-Tree.',
+      'Impossibilidade técnica de armazenar dados estruturados no formato JSON.'
+    ],
+    correctAnswer: 2,
+    explanation: 'Bancos NoSQL são projetados para modelos de dados específicos e oferecem esquemas flexíveis, ao contrário da estrutura de tabelas rígida dos RDBMS.'
+  },
+  {
+    id: 'kv7',
+    topic: 'Banco de Chave-Valor',
+    question: 'Em um registro de Banco de Dados Chave-Valor, o que a Chave tipicamente representa?',
+    options: [
+      'Uma coleção de documentos JSON que armazena múltiplos atributos de uma entidade de domínio.',
+      'O dado associado que pode ser um binário complexo, uma string ou um objeto serializado.',
+      'Uma Foreign Key que estabelece uma relação direta e rígida com um banco de dados relacional.',
+      'O identificador único que funciona como uma Primary Key indexada em uma Hash Table global.',
+      'Um conjunto de índices secundários que permitem buscas eficientes por atributos não-chave.'
+    ],
+    correctAnswer: 3,
+    explanation: 'Em um armazenamento Chave-Valor, a chave é o identificador único usado para recuperar o valor associado, geralmente implementado com tabelas hash para acesso O(1).'
+  },
+  {
+    id: 'kv8',
+    topic: 'Banco de Chave-Valor',
+    question: 'Em sistemas de alta escala, por que a latência no carregamento de dados é considerada um fator crítico para a receita?',
+    options: [
+      'Atrasos garantem a consistência imediata dos dados em todas as réplicas do sistema.',
+      'Milissegundos de atraso são considerados irrelevantes em ambientes de alta disponibilidade.',
+      'Atrasos no carregamento tendem a aumentar o abandono do carrinho e reduzir a conversão de vendas.',
+      'Latência alta permite a replicação síncrona global entre diferentes regiões geográficas.',
+      'Somente bancos de dados relacionais são afetados negativamente pela latência de rede.'
+    ],
+    correctAnswer: 2,
+    explanation: 'A alta latência impacta negativamente a experiência do usuário, levando a taxas de conversão mais baixas e perda de receita em aplicações de alto tráfego.'
+  },
+  {
+    id: 'kv9',
+    topic: 'Banco de Chave-Valor',
+    question: 'Qual é a principal implicação do conceito Acesso Pattern-Driven no design de Bancos de Dados Chave-Valor simples?',
+    options: [
+      'O banco é desenhado priorizando a forma como os dados serão guardados fisicamente no disco rígido para otimizar o espaço.',
+      'Consultas complexas como filtros por atributos variados são nativamente eficientes sem a necessidade de chaves primárias.',
+      'A indexação de todos os campos é feita de forma totalmente automática sem qualquer necessidade de intervenção do desenvolvedor.',
+      'O banco é desenhado pensando em como os dados serão lidos e requer a criação de índices manuais para pesquisas não diretas.',
+      'A ausência de cláusulas WHERE permite a execução de JOINs complexos e performáticos entre diferentes chaves únicas do sistema.'
+    ],
+    correctAnswer: 3,
+    explanation: 'Bancos Chave-Valor exigem que você modele seus dados com base em como irá consultá-los, pois não suportam consultas complexas arbitrárias nativamente.'
+  },
+  {
+    id: 'kv10',
+    topic: 'Banco de Chave-Valor',
+    question: 'Qual protocolo de conexão é a tendência no modelo Serverless e é fácil de usar com firewalls e funções Lambda?',
+    options: [
+      'Conexão TCP Persistente.',
+      'WebSockets bi-direcionais.',
+      'Protocolo REST / HTTP.',
+      'Protocolo binário nativo.',
+      'Protocolo FTP Seguro.'
+    ],
+    correctAnswer: 2,
+    explanation: 'REST/HTTP é stateless e amigável a firewalls, sendo ideal para ambientes serverless onde conexões persistentes são difíceis de gerenciar.'
+  },
+  {
+    id: 'kv11',
+    topic: 'Banco de Chave-Valor',
+    question: 'Qual prática é obrigatória para garantir que os dados trafeguem criptografados entre a Aplicação e o Banco na Nuvem?',
+    options: [
+      'Configuração de IP Allowlisting estático.',
+      'Criptografia Encryption at Rest no disco.',
+      'Criptografia TLS/SSL (Em Trânsito).',
+      'Desativação da autenticação por usuário.',
+      'Uso de containers com endereços IP dinâmicos.'
+    ],
+    correctAnswer: 2,
+    explanation: 'A criptografia TLS/SSL garante que os dados estejam protegidos enquanto se movem entre a aplicação e o servidor de banco de dados pela rede.'
+  },
+  {
+    id: 'kv12',
+    topic: 'Banco de Chave-Valor',
+    question: 'Qual produto é um Redis Serverless projetado para a era moderna com custo por request e conexão via API REST?',
+    options: [
+      'Serviço DynamoDB.',
+      'Sistema Memcached.',
+      'Serviço Redis Cloud.',
+      'Banco Cosmos DB.',
+      'Plataforma Upstash.'
+    ],
+    correctAnswer: 4,
+    explanation: 'O Upstash fornece uma experiência Redis serverless com suporte a HTTP, otimizado especificamente para plataformas de computação em nuvem e edge.'
+  },
+  {
+    id: 'kv13',
+    topic: 'Banco de Chave-Valor',
+    question: 'O Amazon DynamoDB foca em escala massiva e alta disponibilidade. Qual é a sua característica de modelo de dados?',
+    options: [
+      'Focado exclusivamente em strings simples.',
+      'Multithreaded sem persistência de dados.',
+      'Banco relacional com suporte a stored procedures.',
+      'Chave-Valor com suporte a documentos JSON.',
+      'Multimodelo com suporte nativo a grafos.'
+    ],
+    correctAnswer: 3,
+    explanation: 'O DynamoDB é um banco NoSQL gerenciado que suporta modelos de dados chave-valor e documento, oferecendo alta escalabilidade e performance.'
+  },
+  {
+    id: 'kv14',
+    topic: 'Banco de Chave-Valor',
+    question: 'Para implementar um Rate Limiting, qual combinação de dados é tipicamente usada no Redis?',
+    options: [
+      'Uso de Listas (Lists) com operações de Push/Pop para controle de fila.',
+      'Uso de Sorted Sets (Conjuntos Ordenados) para ranking automático.',
+      'Incremento Atômico de um contador (Strings) associado a um TTL (Time To Live).',
+      'Uso de estrutura de Documentos JSON complexos para cada requisição.',
+      'Uso de chaves binárias para armazenamento de arquivos de log grandes.'
+    ],
+    correctAnswer: 2,
+    explanation: 'O limite de taxa é frequentemente implementado incrementando um contador para uma chave e definindo um tempo de expiração para essa chave.'
+  },
+  {
+    id: 'kv15',
+    topic: 'Banco de Chave-Valor',
+    question: 'Qual das seguintes características é uma desvantagem inerente ao modelo Chave-Valor simples?',
+    options: [
+      'Baixa capacidade de escalabilidade horizontal em clusters.',
+      'Latência de resposta na casa dos milissegundos.',
+      'Suporte nativo a JOINs complexos entre tabelas.',
+      'Necessidade de realizar relacionamentos via código na aplicação.',
+      'Ineficiência para lidar com alto volume de leitura.'
+    ],
+    correctAnswer: 3,
+    explanation: 'Como os bancos Chave-Valor não possuem suporte nativo para junções ou relacionamentos complexos, os desenvolvedores devem gerenciar isso na lógica da aplicação.'
+  },
+
+  // --- Banco de Coluna Larga (5 Questões) ---
+  {
+    id: 'wc1',
+    topic: 'Banco de Coluna Larga',
+    question: 'Qual a diferença fundamental entre bancos de Coluna Larga (Wide-Column) e bancos Relacionais?',
+    options: [
+      'Bancos relacionais armazenam dados em linhas; Coluna Larga armazena famílias de colunas dinâmicas.',
+      'Coluna Larga não permite armazenar strings.',
+      'Bancos relacionais são apenas para Linux; Coluna Larga apenas para Windows.',
+      'Não há diferença, são apenas nomes diferentes para a mesma tecnologia.',
+      'Coluna Larga é uma tecnologia obsoleta dos anos 70.'
     ],
     correctAnswer: 0,
-    explanation: 'O Factory Method define uma interface para criar um objeto, mas deixa as subclasses decidirem qual classe instanciar.'
+    explanation: 'Bancos como Cassandra e HBase organizam dados em famílias de colunas, permitindo que cada linha tenha colunas diferentes.'
+  },
+  {
+    id: 'wc2',
+    topic: 'Banco de Coluna Larga',
+    question: 'Para qual cenário o Apache Cassandra é especialmente recomendado?',
+    options: [
+      'Pequenas aplicações mobile com poucos usuários.',
+      'Grandes volumes de dados distribuídos com alta disponibilidade e sem ponto único de falha.',
+      'Sistemas que exigem muitos JOINs entre tabelas diferentes.',
+      'Apenas para armazenamento de arquivos de imagem.',
+      'Sistemas de contabilidade simples.'
+    ],
+    correctAnswer: 1,
+    explanation: 'Cassandra foi projetado para lidar com cargas massivas de dados em múltiplos data centers.'
+  },
+  {
+    id: 'wc3',
+    topic: 'Banco de Coluna Larga',
+    question: 'O que é uma "Column Family" (Família de Colunas)?',
+    options: [
+      'Um grupo de desenvolvedores que trabalham com SQL.',
+      'Um container para colunas relacionadas, similar a uma tabela, mas muito mais flexível.',
+      'Uma função que soma valores de uma coluna.',
+      'Um tipo de backup incremental.',
+      'Uma restrição de integridade referencial.'
+    ],
+    correctAnswer: 1,
+    explanation: 'Famílias de colunas permitem agrupar dados que são frequentemente acessados juntos.'
+  },
+  {
+    id: 'wc4',
+    topic: 'Banco de Coluna Larga',
+    question: 'Como é feita a escrita em bancos de Coluna Larga para garantir alta performance?',
+    options: [
+      'O banco espera o disco parar de girar para gravar.',
+      'Usa estruturas como Memtables e Commit Logs para gravações sequenciais rápidas.',
+      'Grava os dados em ordem alfabética.',
+      'Envia os dados para um serviço de terceiros processar.',
+      'A escrita é síncrona e bloqueia todos os outros usuários.'
+    ],
+    correctAnswer: 1,
+    explanation: 'Estruturas como LSM-Trees permitem que a escrita seja extremamente rápida, sendo gravada primeiro em memória e log sequencial.'
+  },
+  {
+    id: 'wc5',
+    topic: 'Banco de Coluna Larga',
+    question: 'Em bancos de Coluna Larga, o design do esquema deve ser baseado em:',
+    options: [
+      'Normalização de dados (3NF).',
+      'As consultas (queries) que a aplicação irá realizar.',
+      'A ordem alfabética dos campos.',
+      'O tamanho dos arquivos no disco.',
+      'A vontade do DBA.'
+    ],
+    correctAnswer: 1,
+    explanation: 'Diferente do SQL, no NoSQL de Coluna Larga você modela os dados para atender especificamente às suas necessidades de leitura.'
   },
 
-  // --- DDD (5 Questões) ---
+  // --- Banco de Grafos (5 Questões) ---
   {
-    id: 'ddd1',
-    topic: 'DDD',
-    question: 'O que representa o conceito de "Linguagem Ubíqua" (Ubiquitous Language) no DDD?',
+    id: 'gr1',
+    topic: 'Banco de Grafos',
+    question: 'Quais são os dois elementos fundamentais de um banco de dados de Grafos?',
     options: [
-      'Uma linguagem de programação universal que funciona em qualquer sistema operacional.',
-      'Um vocabulário comum compartilhado por desenvolvedores e especialistas de domínio.',
-      'A tradução automática do código-fonte para múltiplos idiomas humanos.',
-      'Um conjunto de termos técnicos que apenas arquitetos de software devem conhecer.',
-      'A padronização de nomes de variáveis seguindo a convenção CamelCase.'
+      'Tabelas e Linhas.',
+      'Nós (Nodes/Vertices) e Relacionamentos (Edges/Relationships).',
+      'Chaves e Valores.',
+      'Documentos e Coleções.',
+      'Arquivos e Pastas.'
     ],
     correctAnswer: 1,
-    explanation: 'A Linguagem Ubíqua visa eliminar falhas de comunicação entre o negócio e o desenvolvimento.'
+    explanation: 'Grafos focam nas conexões entre os dados. Nós representam entidades e Edges representam como elas se relacionam.'
   },
   {
-    id: 'ddd2',
-    topic: 'DDD',
-    question: 'No DDD, qual a principal diferença entre uma "Entidade" (Entity) e um "Objeto de Valor" (Value Object)?',
+    id: 'gr2',
+    topic: 'Banco de Grafos',
+    question: 'Qual a principal vantagem de usar um banco de Grafos como o Neo4j?',
     options: [
-      'Entidades são salvas no banco de dados e Value Objects ficam apenas na memória.',
-      'Entidades possuem identidade única e contínua; Value Objects são definidos apenas por seus atributos.',
-      'Value Objects possuem ID autoincrementável e Entidades são imutáveis.',
-      'Entidades são classes abstratas e Value Objects são interfaces concretas.',
-      'Não há diferença técnica entre os dois conceitos no domínio.'
+      'É o banco mais barato do mercado.',
+      'Performance superior em consultas que envolvem múltiplos níveis de relacionamentos (travessias).',
+      'Permite armazenar trilhões de documentos JSON sem relação.',
+      'Substitui a necessidade de usar JavaScript no frontend.',
+      'Não exige nenhum tipo de hardware especial.'
     ],
     correctAnswer: 1,
-    explanation: 'Uma Entidade é reconhecida por sua identidade (ex: CPF), enquanto um VO é definido pelo valor (ex: Cor, Endereço).'
+    explanation: 'Em bancos relacionais, muitos relacionamentos exigem JOINs caros. Em grafos, as conexões são persistidas fisicamente, tornando a navegação instantânea.'
   },
   {
-    id: 'ddd3',
-    topic: 'DDD',
-    question: 'O que define um "Bounded Context" (Contexto Delimitado)?',
+    id: 'gr3',
+    topic: 'Banco de Grafos',
+    question: 'O que são "Propriedades" (Properties) em um grafo?',
     options: [
-      'A limitação física de memória RAM que um microsserviço pode consumir.',
-      'Uma fronteira lógica onde um modelo de domínio particular é definido e aplicado.',
-      'O tempo máximo que uma transação de banco de dados pode durar.',
-      'A separação entre o código de frontend e o código de backend.',
-      'O limite de requisições por segundo que uma API pode processar.'
+      'Os donos do banco de dados.',
+      'Pares chave-valor armazenados dentro de nós ou relacionamentos.',
+      'As permissões de acesso ao sistema.',
+      'O tamanho total do banco em disco.',
+      'As cores usadas na visualização do grafo.'
     ],
     correctAnswer: 1,
-    explanation: 'Bounded Contexts ajudam a lidar com modelos grandes, dividindo-os em partes menores e independentes.'
+    explanation: 'Tanto os nós quanto as conexões podem ter atributos extras (ex: um nó "Pessoa" com propriedade "nome: João").'
   },
   {
-    id: 'ddd4',
-    topic: 'DDD',
-    question: 'Qual a função de um "Agregado" (Aggregate) no DDD?',
+    id: 'gr4',
+    topic: 'Banco de Grafos',
+    question: 'Bancos de Grafos são a escolha ideal para:',
     options: [
-      'Realizar a soma de valores numéricos em uma coleção de objetos.',
-      'Agrupar objetos de domínio que devem ser tratados como uma unidade para mudanças de dados.',
-      'Conectar o sistema a múltiplos bancos de dados simultaneamente.',
-      'Gerar relatórios estatísticos baseados em logs de erro da aplicação.',
-      'Substituir o uso de frameworks de persistência como Hibernate ou Entity Framework.'
+      'Sistemas de folha de pagamento simples.',
+      'Redes sociais, sistemas de recomendação e detecção de fraudes.',
+      'Armazenamento de logs de servidor.',
+      'Hospedagem de sites estáticos.',
+      'Processamento de imagens médicas.'
     ],
     correctAnswer: 1,
-    explanation: 'O Agregado garante a consistência transacional dentro de sua fronteira, liderado por uma Aggregate Root.'
+    explanation: 'Cenários onde o valor está na conexão entre os pontos (ex: "quem é amigo de quem que gosta de tal produto").'
   },
   {
-    id: 'ddd5',
-    topic: 'DDD',
-    question: 'O padrão "Repository" no DDD tem como objetivo:',
+    id: 'gr5',
+    topic: 'Banco de Grafos',
+    question: 'O que significa "Index-free Adjacency"?',
     options: [
-      'Armazenar arquivos estáticos como imagens e CSS em um servidor CDN.',
-      'Mediar entre as camadas de domínio e persistência, agindo como uma coleção em memória.',
-      'Criar backups automáticos do código-fonte no GitHub ou GitLab.',
-      'Controlar o versionamento de pacotes NuGet ou NPM no projeto.',
-      'Definir a estrutura física das tabelas no banco de dados relacional.'
+      'O banco de dados não usa índices para nada.',
+      'Cada nó armazena referências diretas para seus vizinhos, permitindo navegação sem buscas em índices.',
+      'O banco é gratuito para uso acadêmico.',
+      'Não é possível criar índices em colunas de texto.',
+      'Os dados são armazenados de forma adjacente no HD.'
     ],
     correctAnswer: 1,
-    explanation: 'Repositories permitem que o domínio ignore os detalhes de como os dados são salvos ou recuperados.'
-  },
-
-  // --- ARQUITETURA MONOLÍTICA (5 Questões) ---
-  {
-    id: 'mono1',
-    topic: 'Arquitetura Monolítica',
-    question: 'Qual a principal característica de uma arquitetura Monolítica?',
-    options: [
-      'O sistema é dividido em pequenos serviços independentes que se comunicam via rede.',
-      'A aplicação é construída como uma única unidade lógica e indivisível.',
-      'Cada funcionalidade do sistema possui seu próprio banco de dados isolado.',
-      'O código é obrigatoriamente escrito em uma linguagem funcional.',
-      'O sistema não possui interface de usuário, operando apenas via linha de comando.'
-    ],
-    correctAnswer: 1,
-    explanation: 'No monólito, todas as funções (UI, lógica de negócio, acesso a dados) compartilham o mesmo processo e base de código.'
+    explanation: 'Isso permite que a performance da consulta seja proporcional à parte do grafo sendo explorada, e não ao tamanho total do banco.'
   },
   {
-    id: 'mono2',
-    topic: 'Arquitetura Monolítica',
-    question: 'Uma vantagem comum de sistemas monolíticos no início de um projeto é:',
+    id: 'gr6',
+    topic: 'Banco de Grafos',
+    question: 'Qual dos seguintes modelos de banco de dados representa as informações através de nós, arestas e propriedades?',
     options: [
-      'A extrema facilidade de escalar partes específicas do sistema de forma independente.',
-      'Menor complexidade operacional e facilidade de testes integrados iniciais.',
-      'A capacidade de usar centenas de tecnologias diferentes em cada módulo.',
-      'O isolamento total de falhas entre as diferentes funcionalidades.',
-      'A redução drástica do tempo de compilação em grandes bases de código.'
+      'Base de Dados Relacional baseada em tabelas rígidas.',
+      'Base de Dados Documento focada em objetos JSON.',
+      'Base de Dados Colunar para análise de grandes volumes.',
+      'Base de Dados de Grafos ideal para relações complexas.',
+      'Base de Dados Chave-Valor para acesso ultra-rápido.'
     ],
-    correctAnswer: 1,
-    explanation: 'Monólitos são simples de desenvolver, testar e fazer deploy quando o sistema ainda é pequeno.'
+    correctAnswer: 3,
+    explanation: 'O modelo de grafos é especificamente desenhado para tratar conexões como cidadãos de primeira classe, facilitando a análise de redes.'
   },
   {
-    id: 'mono3',
-    topic: 'Arquitetura Monolítica',
-    question: 'Qual o principal desafio de escalabilidade em um monólito?',
+    id: 'gr7',
+    topic: 'Banco de Grafos',
+    question: 'Na arquitetura de Bancos de Dados de Grafos, qual elemento descreve a natureza da conexão entre dois nós?',
     options: [
-      'Não é possível escalar o sistema horizontalmente em nenhum cenário.',
-      'É necessário escalar toda a aplicação, mesmo que apenas uma função precise de mais recursos.',
-      'O banco de dados de um monólito não pode ser replicado entre servidores.',
-      'A rede interna do monólito fica sobrecarregada com chamadas RPC.',
-      'A interface de usuário impede o balanceamento de carga (Load Balancing).'
+      'Propriedade do Nó que armazena atributos específicos.',
+      'Índice de Busca que acelera a localização de dados.',
+      'Tipo de Relacionamento que define o sentido da conexão.',
+      'Esquema da Tabela que organiza as colunas de dados.',
+      'Partição de Dados que distribui a carga no cluster.'
     ],
-    correctAnswer: 1,
-    explanation: 'Se uma funcionalidade pesada exige mais memória, você deve replicar o monólito inteiro, desperdiçando recursos.'
+    correctAnswer: 2,
+    explanation: 'O tipo de relacionamento define o significado da conexão entre as entidades, como "SEGUE", "COMPROU" ou "TRABALHA_EM".'
   },
   {
-    id: 'mono4',
-    topic: 'Arquitetura Monolítica',
-    question: 'O termo "Big Ball of Mud" (Grande Bola de Lama) refere-se a:',
+    id: 'gr8',
+    topic: 'Banco de Grafos',
+    question: 'Qual linguagem de consulta é frequentemente utilizada para interagir com Bancos de Dados de Grafos?',
     options: [
-      'Uma técnica de compressão de dados utilizada em bancos legados.',
-      'Um monólito que perdeu sua estrutura interna e tornou-se um emaranhado de dependências.',
-      'Um padrão de design focado na criação de objetos dinâmicos.',
-      'A arquitetura ideal recomendada para sistemas de alta performance.',
-      'O processo de limpeza de código durante o refactoring.'
+      'SQL Structured Query Language para tabelas relacionais.',
+      'MongoDB Query Language para documentos flexíveis.',
+      'Cypher otimizada para busca de padrões em grafos.',
+      'Cassandra Query Language para famílias de colunas.',
+      'XML Path Language para navegação em arquivos XML.'
     ],
-    correctAnswer: 1,
-    explanation: 'Refere-se a sistemas sem arquitetura perceptível, onde qualquer mudança gera efeitos colaterais imprevisíveis.'
+    correctAnswer: 2,
+    explanation: 'Cypher é uma linguagem declarativa inspirada no SQL, mas otimizada para expressar padrões de grafos de forma visual e intuitiva.'
   },
   {
-    id: 'mono5',
-    topic: 'Arquitetura Monolítica',
-    question: 'Como ocorre o deploy de uma aplicação monolítica típica?',
+    id: 'gr9',
+    topic: 'Banco de Grafos',
+    question: 'Qual conceito da Teoria dos Grafos é utilizado para medir a importância ou eficiência de conexão entre nós?',
     options: [
-      'Cada classe do sistema é enviada individualmente para o servidor.',
-      'Todo o código é empacotado em um único artefato (ex: .jar, .war, .exe) e implantado.',
-      'O deploy é feito via streaming de código diretamente para o navegador do usuário.',
-      'Apenas as funções modificadas são enviadas para o servidor de produção.',
-      'Não existe processo de deploy, pois o monólito roda apenas localmente.'
+      'Cardinalidade que mede o volume de registros únicos.',
+      'Densidade que calcula a proporção de arestas existentes.',
+      'Grau do Nó que conta o número de conexões diretas.',
+      'Centralidade que identifica nós influentes na rede.',
+      'Latência que mede o tempo de resposta das consultas.'
     ],
-    correctAnswer: 1,
-    explanation: 'A unidade de implantação única é o que define fisicamente o monólito.'
-  },
-
-  // --- MICROSSERVIÇOS (5 Questões) ---
-  {
-    id: 'ms1',
-    topic: 'Microsserviços',
-    question: 'Qual o princípio fundamental da arquitetura de Microsserviços?',
-    options: [
-      'Centralizar todo o processamento em um único servidor potente.',
-      'Dividir o sistema em serviços pequenos, autônomos e focados em um domínio.',
-      'Obrigar o uso de comunicação síncrona via protocolos proprietários.',
-      'Compartilhar o mesmo esquema de banco de dados entre todos os serviços.',
-      'Eliminar a camada de rede para aumentar a performance das chamadas.'
-    ],
-    correctAnswer: 1,
-    explanation: 'Serviços independentes permitem deploys separados, tecnologias distintas e escalabilidade granular.'
+    correctAnswer: 3,
+    explanation: 'A centralidade ajuda a identificar os nós mais importantes ou influentes dentro de uma rede complexa de conexões.'
   },
   {
-    id: 'ms2',
-    topic: 'Microsserviços',
-    question: 'O que significa o padrão "Database per Service"?',
+    id: 'gr10',
+    topic: 'Banco de Grafos',
+    question: 'Qual dos seguintes não é considerado um componente essencial na estrutura de um Banco de Dados de Grafos?',
     options: [
-      'Cada usuário do sistema possui seu próprio banco de dados privado.',
-      'Cada microsserviço gerencia seus próprios dados, sem acesso direto de outros serviços.',
-      'O sistema utiliza apenas bancos de dados relacionais para garantir consistência.',
-      'Todos os serviços devem ser salvos em um único arquivo de banco de dados SQL.',
-      'A base de dados é deletada e recriada a cada novo deploy do serviço.'
+      'Nós Vertices que representam as entidades do sistema.',
+      'Arestas Relacionamentos que conectam os nós entre si.',
+      'Propriedades Atributos que detalham as informações.',
+      'Tabelas com Chaves Estrangeiras para ligar os dados.',
+      'Rótulos Tipos que categorizam os elementos do grafo.'
     ],
-    correctAnswer: 1,
-    explanation: 'Isso garante o baixo acoplamento; um serviço não pode quebrar outro alterando tabelas.'
+    correctAnswer: 3,
+    explanation: 'Bancos de grafos eliminam a necessidade de tabelas e chaves estrangeiras, usando conexões diretas entre os objetos de dados.'
   },
   {
-    id: 'ms3',
-    topic: 'Microsserviços',
-    question: 'Qual a função de um "API Gateway" nesta arquitetura?',
+    id: 'gr11',
+    topic: 'Banco de Grafos',
+    question: 'O que representa um índice de propriedade em um Banco de Dados de Grafos?',
     options: [
-      'Substituir o banco de dados central por um sistema de arquivos distribuído.',
-      'Atuar como ponto único de entrada para encaminhar requisições aos serviços internos.',
-      'Realizar a compilação do código-fonte em tempo real na nuvem.',
-      'Bloquear o acesso de desenvolvedores ao ambiente de produção.',
-      'Criptografar as senhas dos usuários antes de salvá-las no disco.'
+      'Uma lista de todos os relacionamentos em um grafo.',
+      'Um mecanismo para garantir a unicidade de rótulos.',
+      'Estrutura para acelerar a busca de nós por valor.',
+      'Uma forma de compactar o armazenamento dos nós.',
+      'O número total de arestas conectadas a um nó.'
     ],
-    correctAnswer: 1,
-    explanation: 'O Gateway simplifica a vida do cliente, oferecendo uma interface única para múltiplos serviços.'
+    correctAnswer: 2,
+    explanation: 'Índices de propriedade permitem localizar rapidamente o ponto de partida de uma travessia no grafo sem percorrer todos os nós.'
   },
   {
-    id: 'ms4',
-    topic: 'Microsserviços',
-    question: 'O que é a "Eventual Consistency" (Consistência Eventual)?',
+    id: 'gr12',
+    topic: 'Banco de Grafos',
+    question: 'Qual a vantagem de um Banco de Grafos sobre um Relacional para consultas com múltiplos níveis de conexões?',
     options: [
-      'Um erro de sistema onde os dados nunca chegam a ficar consistentes.',
-      'Um modelo onde os dados estarão consistentes em algum momento futuro, após a propagação.',
-      'A garantia de que todas as transações de rede ocorrem em menos de 1 milisegundo.',
-      'A prática de salvar dados apenas quando ocorre um evento de erro grave.',
-      'O uso de backup físico para restaurar a consistência do HD.'
+      'Maior integridade transacional em todas as tabelas.',
+      'Menor redundância de dados em esquemas normalizados.',
+      'Melhor desempenho na travessia de relacionamentos.',
+      'Mais facilidade em operações de agregação de dados.',
+      'Melhor suporte a dados não estruturados e binários.'
     ],
-    correctAnswer: 1,
-    explanation: 'Comum em sistemas distribuídos que usam eventos para comunicar mudanças entre serviços.'
+    correctAnswer: 2,
+    explanation: 'Em grafos, a performance de travessia é constante e não depende do volume total de dados, ao contrário dos JOINs relacionais.'
   },
   {
-    id: 'ms5',
-    topic: 'Microsserviços',
-    question: 'A arquitetura de microsserviços aumenta significativamente:',
+    id: 'gr13',
+    topic: 'Banco de Grafos',
+    question: 'Qual termo descreve a situação em que o Banco de Grafos é usado para encontrar o trajeto mais curto entre nós?',
     options: [
-      'A facilidade de depuração (debugging) manual entre processos.',
-      'A complexidade operacional e a necessidade de automação (DevOps).',
-      'A velocidade de chamadas de função locais dentro do código.',
-      'A simplicidade de manter transações ACID globais entre serviços.',
-      'A dependência de uma única linguagem de programação para todo o sistema.'
+      'Agregação de valores em um conjunto de resultados.',
+      'Indexação de campos para busca rápida de registros.',
+      'Caminho Mínimo entre dois pontos na rede de dados.',
+      'Propagação de mudanças em um cluster distribuído.',
+      'Sharding de dados para escalabilidade horizontal.'
+    ],
+    correctAnswer: 2,
+    explanation: 'O algoritmo de caminho mínimo é fundamental para aplicações de logística, redes sociais e sistemas de recomendação.'
+  },
+  {
+    id: 'gr14',
+    topic: 'Banco de Grafos',
+    question: 'Qual o papel do Modelo de Propriedades de Grafos na teoria de Bancos de Dados de Grafos?',
+    options: [
+      'Definir como os dados são armazenados em discos.',
+      'Descrever formalmente nós, relações e propriedades.',
+      'Gerenciar o acesso concorrente aos dados do banco.',
+      'Determinar a linguagem de programação do front-end.',
+      'Realizar a otimização de consultas complexas SQL.'
     ],
     correctAnswer: 1,
-    explanation: 'Gerenciar múltiplos serviços exige monitoramento, orquestração e CI/CD robustos.'
+    explanation: 'O Labeled Property Graph (LPG) é o modelo mais comum, permitindo que tanto nós quanto arestas possuam atributos detalhados.'
+  },
+  {
+    id: 'gr15',
+    topic: 'Banco de Grafos',
+    question: 'Qual conceito é responsável por agrupar nós que compartilham o mesmo tipo, facilitando a consulta?',
+    options: [
+      'Chave Primária que identifica o registro de forma única.',
+      'Cluster que distribui os dados por vários servidores.',
+      'Rótulo Label que categoriza os elementos do grafo.',
+      'View que representa uma visão lógica das tabelas.',
+      'Procedure Stored que executa lógica no lado do banco.'
+    ],
+    correctAnswer: 2,
+    explanation: 'Rótulos (Labels) permitem categorizar nós, como "Pessoa" ou "Empresa", otimizando a filtragem e a organização do grafo.'
   },
 
-  // --- PADRÃO MVC (5 Questões) ---
+  // --- Fundamentos de BD (5 Questões) ---
   {
-    id: 'mvc1',
-    topic: 'Padrão MVC',
-    question: 'No padrão MVC, qual a responsabilidade da camada "Model"?',
+    id: 'fnd1',
+    topic: 'Fundamentos de BD',
+    question: 'O que é a "Normalização" em bancos de dados relacionais?',
     options: [
-      'Exibir os dados para o usuário e capturar cliques de botões.',
-      'Gerenciar os dados, a lógica de negócio e as regras de domínio.',
-      'Intermediar a comunicação entre o teclado e a tela do computador.',
-      'Definir as rotas de URL que o servidor deve escutar.',
-      'Estilizar a aplicação usando CSS e frameworks de design.'
+      'O processo de aumentar o tamanho das tabelas.',
+      'Organizar os dados para reduzir a redundância e melhorar a integridade.',
+      'Converter o banco de dados para o formato NoSQL.',
+      'Garantir que todos os usuários tenham a mesma senha.',
+      'Traduzir os nomes das colunas para o inglês.'
     ],
     correctAnswer: 1,
-    explanation: 'O Model é o "coração" da aplicação, onde residem os dados e como eles se comportam.'
+    explanation: 'A normalização (1NF, 2NF, 3NF...) visa eliminar dados duplicados e anomalias de atualização.'
   },
   {
-    id: 'mvc2',
-    topic: 'Padrão MVC',
-    question: 'A camada "View" deve idealmente:',
+    id: 'fnd2',
+    topic: 'Fundamentos de BD',
+    question: 'Qual a função de uma "Chave Estrangeira" (Foreign Key)?',
     options: [
-      'Conter toda a lógica de acesso ao banco de dados para ser mais rápida.',
-      'Ser responsável apenas pela apresentação dos dados, sem lógica de negócio.',
-      'Controlar as sessões dos usuários e as permissões de acesso.',
-      'Substituir o uso de controladores em aplicações web modernas.',
-      'Armazenar variáveis globais que afetam o comportamento do servidor.'
+      'Permitir o acesso de usuários de outros países.',
+      'Estabelecer um vínculo entre os dados de duas tabelas diferentes.',
+      'Criptografar os dados sensíveis.',
+      'Aumentar a velocidade de download do banco.',
+      'Substituir a chave primária em caso de erro.'
     ],
     correctAnswer: 1,
-    explanation: 'A View deve ser o mais "burra" possível, apenas formatando o que o Model fornece.'
+    explanation: 'A FK garante a integridade referencial, assegurando que um registro em uma tabela aponte para um registro válido em outra.'
   },
   {
-    id: 'mvc3',
-    topic: 'Padrão MVC',
-    question: 'Qual o papel do "Controller" no fluxo de execução?',
+    id: 'fnd3',
+    topic: 'Fundamentos de BD',
+    question: 'O que é um "Índice" em um banco de dados?',
     options: [
-      'Renderizar o código HTML final que será enviado ao navegador.',
-      'Receber entradas, processá-las (via Model) e selecionar a View de saída.',
-      'Definir a estrutura das tabelas no banco de dados relacional.',
-      'Criptografar as comunicações via protocolo HTTPS.',
-      'Monitorar a performance da CPU e da memória RAM do servidor.'
+      'Uma lista de todos os bugs do sistema.',
+      'Uma estrutura de dados que melhora a velocidade das operações de busca.',
+      'O número da página no manual do usuário.',
+      'Uma restrição que impede a inserção de dados.',
+      'Um backup compactado do banco.'
     ],
     correctAnswer: 1,
-    explanation: 'O Controller age como um maestro, coordenando a interação entre o usuário, o modelo e a visão.'
+    explanation: 'Índices funcionam como o índice de um livro, permitindo encontrar dados sem ler a tabela inteira (Full Table Scan).'
   },
   {
-    id: 'mvc4',
-    topic: 'Padrão MVC',
-    question: 'O principal benefício do desacoplamento gerado pelo MVC é:',
+    id: 'fnd4',
+    topic: 'Fundamentos de BD',
+    question: 'O que caracteriza uma transação "Atomic" (Atômica)?',
     options: [
-      'Aumentar drasticamente a velocidade de execução do código em runtime.',
-      'Permitir o desenvolvimento paralelo e a manutenção independente de cada camada.',
-      'Eliminar a necessidade de escrever testes unitários para o sistema.',
-      'Reduzir o tamanho final do executável da aplicação.',
-      'Garantir que o sistema funcione sem conexão com a internet.'
+      'Ela explode se houver um erro.',
+      'Ou a transação é concluída inteiramente com sucesso, ou nada é aplicado.',
+      'Ela é processada em um reator nuclear.',
+      'Ela divide os dados em partículas menores.',
+      'Ela só pode ser executada uma vez por dia.'
     ],
     correctAnswer: 1,
-    explanation: 'Separação de interesses (Separation of Concerns) facilita a evolução do software.'
+    explanation: 'Atomicidade garante que operações parciais não deixem o banco em estado inconsistente.'
   },
   {
-    id: 'mvc5',
-    topic: 'Padrão MVC',
-    question: 'Em uma aplicação Web MVC, o que acontece quando um usuário clica em um link?',
+    id: 'fnd5',
+    topic: 'Fundamentos de BD',
+    question: 'Qual a diferença entre DDL e DML no SQL?',
     options: [
-      'A View envia uma mensagem direta para o banco de dados.',
-      'Uma requisição é enviada para um roteador que a encaminha para um Controller.',
-      'O Model redesenha a página automaticamente usando JavaScript.',
-      'O servidor reinicia para carregar a nova página solicitada.',
-      'A URL é salva em um arquivo de log e a página permanece estática.'
+      'Não há diferença, são sinônimos.',
+      'DDL é para definir a estrutura (CREATE, ALTER); DML é para manipular dados (INSERT, UPDATE).',
+      'DDL é para bancos NoSQL e DML para SQL.',
+      'DDL é mais rápido que DML.',
+      'DDL é para usuários e DML para administradores.'
     ],
     correctAnswer: 1,
-    explanation: 'O fluxo típico começa no Controller, que decide o que fazer com a requisição do usuário.'
+    explanation: 'DDL (Data Definition Language) lida com o esquema; DML (Data Manipulation Language) lida com o conteúdo.'
   },
-
-  // --- FRAMEWORKS (5 Questões) ---
   {
-    id: 'fw1',
-    topic: 'Frameworks',
-    question: 'Qual a definição técnica fundamental de um "Framework"?',
+    id: 'fnd6',
+    topic: 'Fundamentos de BD',
+    question: 'A abordagem de Duplicação de Dados no contexto NoSQL tem como principal objetivo:',
     options: [
-      'Uma coleção de ícones e fontes para uso em interfaces gráficas.',
-      'Uma estrutura que fornece funcionalidades genéricas que podem ser estendidas.',
-      'Um compilador que transforma código Java em código JavaScript.',
-      'Um conjunto de regras de estilo para escrita de documentação técnica.',
-      'Uma ferramenta de chat para comunicação entre programadores.'
+      'Garantir a integridade referencial estrita entre coleções de dados.',
+      'Reduzir a quantidade de espaço de armazenamento total do banco de dados.',
+      'Eliminar a necessidade de índices em todas as coleções de dados do sistema.',
+      'Evitar a necessidade de operações de JOIN em leitura, aumentando a velocidade.',
+      'Facilitar a criação de esquemas rígidos e imutáveis para o banco de dados.'
+    ],
+    correctAnswer: 3,
+    explanation: 'A duplicação de dados no NoSQL visa otimizar a leitura, permitindo que os dados relacionados sejam recuperados sem a necessidade de junções complexas entre tabelas.'
+  },
+  {
+    id: 'fnd7',
+    topic: 'Fundamentos de BD',
+    question: 'Qual é a principal desvantagem da Normalização de Dados que a Duplicação busca mitigar no cenário da Web 2.0 e Big Data?',
+    options: [
+      'A complexidade na manutenção de índices de busca em grandes volumes de dados.',
+      'O alto custo de licenciamento de software para sistemas de gerenciamento RDBMS.',
+      'A necessidade de múltiplas operações de JOIN para recuperar um objeto completo.',
+      'A dificuldade de armazenar dados semi-estruturados em tabelas com esquema fixo.',
+      'A incapacidade de suportar transações ACID em ambientes de alta disponibilidade.'
+    ],
+    correctAnswer: 2,
+    explanation: 'A normalização fragmenta os dados em várias tabelas, o que exige junções custosas para reconstruir o objeto original durante a leitura.'
+  },
+  {
+    id: 'fnd8',
+    topic: 'Fundamentos de BD',
+    question: 'No contexto de um carrinho de compras em NoSQL, o conceito de Agregado JSON refere-se a:',
+    options: [
+      'O processo de garantir que o carrinho esteja normalizado em várias tabelas.',
+      'A técnica de usar múltiplas chaves primárias para identificar o mesmo item.',
+      'Salvar o carrinho inteiro como um único objeto JSON, buscável por uma chave.',
+      'O uso de um esquema rígido que impede alterações rápidas na estrutura básica.',
+      'Uma otimização de cache que armazena apenas os identificadores dos produtos.'
+    ],
+    correctAnswer: 2,
+    explanation: 'O Agregado JSON permite armazenar toda a informação de uma entidade complexa em um único documento, facilitando o acesso atômico.'
+  },
+  {
+    id: 'fnd9',
+    topic: 'Fundamentos de BD',
+    question: 'A principal diferença entre o Schema Rígido do SQL e o Schema Flexível do NoSQL é que o Schema Flexível:',
+    options: [
+      'Proíbe completamente o uso de qualquer chave primária em suas coleções.',
+      'Exige que todas as coleções tenham o mesmo número de atributos internos.',
+      'Permite inserir dados com estruturas diferentes na mesma coleção de dados.',
+      'Prioriza a consistência estrita em detrimento da disponibilidade do sistema.',
+      'É usado exclusivamente em bancos de dados de Grafos para redes sociais.'
+    ],
+    correctAnswer: 2,
+    explanation: 'O esquema flexível permite que documentos na mesma coleção tenham campos diferentes, suportando a evolução rápida do software.'
+  },
+  {
+    id: 'fnd10',
+    topic: 'Fundamentos de BD',
+    question: 'O conceito de Persistência Poliglota significa a prática de:',
+    options: [
+      'Usar apenas um tipo de banco de dados em um sistema de software complexo.',
+      'Utilizar diferentes tecnologias de armazenamento para diferentes necessidades.',
+      'Migrar todos os dados de um banco SQL para um NoSQL para escalabilidade.',
+      'Armazenar o mesmo dado em diferentes idiomas simultaneamente no servidor.',
+      'Usar a linguagem SQL para interagir com todos os tipos de bancos de dados.'
     ],
     correctAnswer: 1,
-    explanation: 'Diferente de uma biblioteca, o framework dita o fluxo da aplicação (Inversion of Control).'
+    explanation: 'A persistência poliglota reconhece que diferentes problemas de dados são melhor resolvidos por diferentes tipos de bancos de dados.'
   },
   {
-    id: 'fw2',
-    topic: 'Frameworks',
-    question: 'O conceito de "Inversão de Controle" (IoC) em frameworks significa que:',
+    id: 'fnd11',
+    topic: 'Fundamentos de BD',
+    question: 'Em uma arquitetura de Persistência Poliglota, o banco de dados SQL seria tipicamente mais adequado para qual cenário?',
     options: [
-      'O desenvolvedor perde o controle sobre o teclado durante a codificação.',
-      'O framework chama o código do desenvolvedor, e não o contrário.',
-      'O sistema operacional assume o controle total da aplicação em tempo real.',
-      'O usuário final pode modificar o código-fonte através da interface.',
-      'As variáveis são lidas de baixo para cima dentro dos métodos.'
+      'Armazenamento massivo de logs de dispositivos de Internet das Coisas.',
+      'Catálogos de produtos com alta flexibilidade de atributos e variações.',
+      'Transações financeiras onde a consistência ACID é um requisito crítico.',
+      'Perfil de usuários de rede social para acesso ultra-rápido via memória.',
+      'Dados que precisam de alta disponibilidade e consistência eventual BASE.'
+    ],
+    correctAnswer: 2,
+    explanation: 'Bancos relacionais são ideais para dados que exigem forte consistência e integridade, como operações financeiras.'
+  },
+  {
+    id: 'fnd12',
+    topic: 'Fundamentos de BD',
+    question: 'O uso do NoSQL em uma arquitetura de Persistência Poliglota é geralmente justificado quando o foco é:',
+    options: [
+      'Garantir a integridade referencial complexa entre as entidades do sistema.',
+      'Manter um esquema de dados estável e previsível por décadas de operação.',
+      'Velocidade, alta escalabilidade e manipulação de grandes volumes de dados.',
+      'Atender a padrões legados de sistemas que exigem o uso de bancos RDBMS.',
+      'Reduzir o risco de aprisionamento tecnológico com um único fornecedor.'
+    ],
+    correctAnswer: 2,
+    explanation: 'NoSQL é escolhido quando a aplicação precisa escalar horizontalmente e lidar com grandes volumes de dados variados.'
+  },
+  {
+    id: 'fnd13',
+    topic: 'Fundamentos de BD',
+    question: 'Qual das seguintes arquiteturas representa um exemplo prático de Persistência Poliglota?',
+    options: [
+      'Usar apenas PostgreSQL para gerenciar todas as operações do sistema.',
+      'Usar MongoDB para gerenciar todas as operações do sistema de software.',
+      'Usar SQL para Folha de Pagamento e NoSQL para o Cache de Sessões de uso.',
+      'Usar dois bancos de dados do mesmo tipo, como dois servidores de Oracle.',
+      'Usar um banco de dados de Grafos apenas para a interface do usuário final.'
+    ],
+    correctAnswer: 2,
+    explanation: 'Combinar SQL para dados estruturados e NoSQL para cache ou dados não estruturados é o exemplo clássico de persistência poliglota.'
+  },
+  {
+    id: 'fnd14',
+    topic: 'Fundamentos de BD',
+    question: 'O Sharding é uma técnica primariamente utilizada para alcançar qual objetivo na engenharia de sistemas de dados?',
+    options: [
+      'Reduzir a latência de rede entre os servidores da aplicação distribuída.',
+      'Permitir que o volume de dados seja dividido por múltiplos servidores.',
+      'Garantir a atomicidade das transações em ambientes de alta concorrência.',
+      'Diminuir o custo de licenciamento de software para bancos de dados SQL.',
+      'Eliminar a necessidade de backups automáticos em sistemas de produção.'
     ],
     correctAnswer: 1,
-    explanation: 'Em bibliotecas, você chama as funções. Em frameworks, ele define os "ganchos" onde seu código roda.'
+    explanation: 'Sharding distribui os dados horizontalmente em vários nós, permitindo que o sistema suporte volumes de dados maiores que a capacidade de um único servidor.'
   },
   {
-    id: 'fw3',
-    topic: 'Frameworks',
-    question: 'Uma desvantagem potencial de utilizar frameworks robustos é:',
+    id: 'fnd15',
+    topic: 'Fundamentos de BD',
+    question: 'Qual é a principal diferença entre a Escalabilidade Vertical e o Sharding?',
     options: [
-      'A impossibilidade de conectar o sistema a bancos de dados externos.',
-      'O "overhead" de performance e a curva de aprendizado específica.',
-      'O aumento da segurança contra ataques de injeção de SQL.',
-      'A padronização do código que facilita a entrada de novos membros no time.',
-      'A redução da quantidade de código manual que precisa ser escrito.'
+      'Escalabilidade Vertical é mais barata que a implementação de Sharding.',
+      'Sharding divide os dados em múltiplos servidores de baixo custo relativo.',
+      'Escalabilidade Vertical é obrigatória em sistemas modernos na nuvem.',
+      'Sharding é usado exclusivamente para processamento de dados em tempo real.',
+      'Escalabilidade Vertical dispensa completamente o uso de índices de busca.'
     ],
     correctAnswer: 1,
-    explanation: 'Frameworks trazem muita "mágica" e arquivos extras que podem pesar no início.'
+    explanation: 'A escalabilidade vertical aumenta os recursos de uma única máquina, enquanto o sharding distribui a carga entre várias máquinas (escalabilidade horizontal).'
   },
   {
-    id: 'fw4',
-    topic: 'Frameworks',
-    question: 'O termo "Opinionated Framework" (Framework Opinativo) refere-se a:',
+    id: 'fnd16',
+    topic: 'Fundamentos de BD',
+    question: 'Se um sistema fragmenta dados de usuários alfabeticamente entre servidores, qual problema o Sharding está resolvendo?',
     options: [
-      'Um software que pede a opinião do usuário antes de realizar cada ação.',
-      'Um framework que impõe uma forma específica (melhor prática) de fazer as coisas.',
-      'Uma ferramenta que gera críticas automáticas ao código escrito pelo desenvolvedor.',
-      'Um sistema que permite apenas o uso de software livre em sua construção.',
-      'Um framework que não possui documentação oficial, baseando-se em fóruns.'
+      'A falta de disponibilidade do sistema de acordo com o Teorema CAP.',
+      'A incapacidade de realizar o backup de segurança de todos os dados.',
+      'O fato de os dados não caberem mais na capacidade de um único servidor.',
+      'O alto custo de migração de um banco de dados RDBMS para um NoSQL.',
+      'A lentidão das operações de alteração de tabelas em bancos relacionais.'
+    ],
+    correctAnswer: 2,
+    explanation: 'O Sharding resolve o problema de saturação de recursos (disco, CPU, RAM) de um único nó ao distribuir os dados.'
+  },
+  {
+    id: 'fnd17',
+    topic: 'Fundamentos de BD',
+    question: 'O Sharding é tipicamente um recurso de banco de dados que:',
+    options: [
+      'É facilmente implementado no SQL tradicional sem lógica na aplicação.',
+      'É feito automaticamente pelos bancos de dados NoSQL de grande escala.',
+      'Só pode ser aplicado em bancos de dados do tipo Grafo e Redes Sociais.',
+      'Diminuir a Tolerância a Partição em sistemas distribuídos complexos.',
+      'Aumenta a rigidez do esquema de dados em ambientes de Big Data.'
     ],
     correctAnswer: 1,
-    explanation: 'Ex: Ruby on Rails ou Angular, que definem estruturas rígidas para aumentar a produtividade.'
-  },
-  {
-    id: 'fw5',
-    topic: 'Frameworks',
-    question: 'A principal diferença entre uma "Biblioteca" e um "Framework" é:',
-    options: [
-      'Bibliotecas são pagas e Frameworks são sempre gratuitos.',
-      'Quem detém o controle do fluxo da aplicação (IoC).',
-      'Bibliotecas funcionam apenas no Windows e Frameworks no Linux.',
-      'Frameworks não permitem o uso de linguagens de programação modernas.',
-      'Bibliotecas são usadas apenas para design e Frameworks para cálculos.'
-    ],
-    correctAnswer: 1,
-    explanation: 'Você usa uma biblioteca; você trabalha dentro de um framework.'
-  },
-
-  // --- ARQUITETURA EM CAMADAS (5 Questões) ---
-  {
-    id: 'layer1',
-    topic: 'Arquitetura em Camadas',
-    question: 'Qual o objetivo primordial da arquitetura em camadas (Layered Architecture)?',
-    options: [
-      'Aumentar o número de arquivos no projeto para impressionar o cliente.',
-      'Organizar o sistema em níveis de abstração com responsabilidades distintas.',
-      'Impedir que o sistema seja traduzido para outros idiomas.',
-      'Garantir que a interface de usuário carregue em menos de 100ms.',
-      'Permitir que o código rode em processadores de múltiplos núcleos.'
-    ],
-    correctAnswer: 1,
-    explanation: 'A separação facilita a substituição de componentes (ex: trocar o banco de dados sem afetar a UI).'
-  },
-  {
-    id: 'layer2',
-    topic: 'Arquitetura em Camadas',
-    question: 'Em uma arquitetura de 3 camadas típica, quais são elas?',
-    options: [
-      'Entrada, Processamento e Saída.',
-      'Apresentação (UI), Lógica de Negócio (BLL) e Acesso a Dados (DAL).',
-      'Frontend, Backend e Fullstack.',
-      'HTML, CSS e JavaScript.',
-      'Hardware, Firmware e Software.'
-    ],
-    correctAnswer: 1,
-    explanation: 'Essa é a divisão clássica que separa a tela, as regras e a persistência.'
-  },
-  {
-    id: 'layer3',
-    topic: 'Arquitetura em Camadas',
-    question: 'A regra fundamental de dependência em camadas estabelece que:',
-    options: [
-      'Camadas inferiores podem chamar livremente funções de camadas superiores.',
-      'Uma camada deve depender apenas da camada imediatamente abaixo dela.',
-      'Todas as camadas devem depender simultaneamente da camada de interface.',
-      'Não deve haver dependência entre as camadas para garantir o isolamento.',
-      'As camadas devem ser lidas da direita para a esquerda pelo compilador.'
-    ],
-    correctAnswer: 1,
-    explanation: 'O fluxo de dependência deve ser top-down para evitar acoplamento circular.'
-  },
-  {
-    id: 'layer4',
-    topic: 'Arquitetura em Camadas',
-    question: 'Uma "Camada de Persistência" é responsável por:',
-    options: [
-      'Garantir que o usuário não desista de usar o sistema (UX).',
-      'Gerenciar o armazenamento e recuperação de dados em meios permanentes.',
-      'Manter a conexão de internet ativa durante todo o uso da aplicação.',
-      'Salvar as preferências estéticas do usuário como cores e temas.',
-      'Recuperar senhas esquecidas através de perguntas de segurança.'
-    ],
-    correctAnswer: 1,
-    explanation: 'Ela abstrai o SQL ou o NoSQL para o restante do sistema.'
-  },
-  {
-    id: 'layer5',
-    topic: 'Arquitetura em Camadas',
-    question: 'Qual a vantagem da "Interoperabilidade" em arquiteturas em camadas?',
-    options: [
-      'Poder trocar a implementação de uma camada sem alterar as outras.',
-      'Obrigação de usar a mesma linguagem em todas as camadas do projeto.',
-      'Redução da segurança, pois os dados passam por muitos níveis.',
-      'Aumento do tempo de resposta devido à passagem de dados entre camadas.',
-      'Facilidade de criar vírus que infectam todas as camadas simultaneamente.'
-    ],
-    correctAnswer: 0,
-    explanation: 'Você pode trocar o banco SQL por MongoDB apenas mexendo na camada de dados.'
-  },
-
-  // --- REFATORAÇÃO (5 Questões) ---
-  {
-    id: 'ref1',
-    topic: 'Refatoração',
-    question: 'O que define o processo de "Refatoração" de código?',
-    options: [
-      'Adicionar novas funcionalidades ao sistema para atender pedidos do cliente.',
-      'Alterar a estrutura interna do código sem modificar seu comportamento externo.',
-      'Reescrever todo o sistema do zero usando uma tecnologia mais nova.',
-      'Corrigir bugs críticos que estão causando quedas no servidor de produção.',
-      'Remover todos os comentários para deixar o arquivo mais leve.'
-    ],
-    correctAnswer: 1,
-    explanation: 'O objetivo é melhorar a legibilidade, reduzir complexidade e facilitar manutenção.'
-  },
-  {
-    id: 'ref2',
-    topic: 'Refatoração',
-    question: 'O termo "Code Smell" (Cheiro de Código) indica:',
-    options: [
-      'Um erro de sintaxe que impede a compilação do programa.',
-      'Um sintoma na estrutura do código que possivelmente indica um problema mais profundo.',
-      'A presença de vírus ou malwares detectados pelo antivírus no código-fonte.',
-      'Um comentário mal escrito que utiliza termos ofensivos ou inadequados.',
-      'O tempo que o código ficou parado sem receber atualizações no repositório.'
-    ],
-    correctAnswer: 1,
-    explanation: 'Code smells não são bugs, mas são sinais de que o código precisa de refatoração (ex: métodos longos).'
-  },
-  {
-    id: 'ref3',
-    topic: 'Refatoração',
-    question: 'Qual o pré-requisito fundamental para uma refatoração segura?',
-    options: [
-      'Ter um computador com processador de última geração e muita RAM.',
-      'Possuir uma suíte de testes automatizados confiável.',
-      'Aprovação formal e assinada pelo CEO da empresa.',
-      'Desligar o sistema para todos os usuários durante o processo.',
-      'Converter todo o código para uma linguagem de tipagem forte.'
-    ],
-    correctAnswer: 1,
-    explanation: 'Sem testes, você não tem garantia de que o comportamento externo permanece o mesmo.'
-  },
-  {
-    id: 'ref4',
-    topic: 'Refatoração',
-    question: 'O ciclo "Red-Green-Refactor" faz parte de qual metodologia?',
-    options: [
-      'Criação de paletas de cores para interfaces de usuário.',
-      'Test-Driven Development (TDD).',
-      'Gerenciamento de tráfego em redes de alta velocidade.',
-      'Processo de deploy contínuo em ambientes de nuvem.',
-      'Instalação de sistemas operacionais baseados em Linux.'
-    ],
-    correctAnswer: 1,
-    explanation: 'Escreva um teste que falha (Red), faça-o passar (Green) e então melhore o código (Refactor).'
-  },
-  {
-    id: 'ref5',
-    topic: 'Refatoração',
-    question: 'A técnica "Extract Method" (Extrair Método) serve para:',
-    options: [
-      'Remover métodos que não são utilizados em nenhuma parte do sistema.',
-      'Transformar um trecho de código complexo dentro de um método em um novo método.',
-      'Copiar um método de uma classe para outra para duplicar funcionalidade.',
-      'Exportar o código para um arquivo de texto externo para documentação.',
-      'Criptografar o nome do método para dificultar a engenharia reversa.'
-    ],
-    correctAnswer: 1,
-    explanation: 'Ajuda a diminuir o tamanho de métodos gigantes e melhora a clareza do código.'
+    explanation: 'Muitos bancos NoSQL modernos foram projetados com sharding automático (auto-sharding) nativo, simplificando a escalabilidade horizontal.'
   }
 ];
+

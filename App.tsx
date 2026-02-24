@@ -118,10 +118,10 @@ const App: React.FC = () => {
   const renderTopicSelection = () => (
     <div className="max-w-4xl mx-auto px-4 py-12 text-center animate-in fade-in duration-700">
       <h2 className={`text-3xl md:text-4xl font-extrabold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-        Mestre da Arquitetura
+        Mestre dos Bancos de Dados
       </h2>
       <p className={`mb-12 max-w-2xl mx-auto ${isDarkMode ? 'text-slate-300' : 'text-gray-600'}`}>
-        Teste seus conhecimentos teóricos em padrões de projeto, arquiteturas modernas e boas práticas de engenharia de software.
+        Teste seus conhecimentos em SQL, NoSQL, modelos de documentos, grafos e muito mais.
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -133,23 +133,21 @@ const App: React.FC = () => {
               ${isDarkMode ? 'bg-slate-800 text-white' : 'bg-white text-gray-800'}`}
           >
             <div className={`w-14 h-14 rounded-2xl mb-4 flex items-center justify-center text-2xl 
-              ${topic === 'Design Patterns' ? 'bg-blue-100 text-blue-600' : 
-                topic === 'DDD' ? 'bg-green-100 text-green-600' : 
-                topic === 'Arquitetura Monolítica' ? 'bg-orange-100 text-orange-600' : 
-                topic === 'Microsserviços' ? 'bg-purple-100 text-purple-600' : 
-                topic === 'Padrão MVC' ? 'bg-red-100 text-red-600' :
-                topic === 'Frameworks' ? 'bg-indigo-100 text-indigo-600' :
-                topic === 'Arquitetura em Camadas' ? 'bg-cyan-100 text-cyan-600' :
+              ${topic === 'SQL vs NoSQL' ? 'bg-blue-100 text-blue-600' : 
+                topic === 'Banco de Documentos' ? 'bg-green-100 text-green-600' : 
+                topic === 'Banco de Chave-Valor' ? 'bg-orange-100 text-orange-600' : 
+                topic === 'Banco de Coluna Larga' ? 'bg-purple-100 text-purple-600' : 
+                topic === 'Banco de Grafos' ? 'bg-red-100 text-red-600' :
+                topic === 'Fundamentos de BD' ? 'bg-indigo-100 text-indigo-600' :
                 'bg-emerald-100 text-emerald-600'}`}>
               <i className={
-                topic === 'Design Patterns' ? 'fas fa-drafting-compass' : 
-                topic === 'DDD' ? 'fas fa-layer-group' : 
-                topic === 'Arquitetura Monolítica' ? 'fas fa-cube' : 
-                topic === 'Microsserviços' ? 'fas fa-cubes' : 
-                topic === 'Padrão MVC' ? 'fas fa-columns' :
-                topic === 'Frameworks' ? 'fas fa-box-open' :
-                topic === 'Arquitetura em Camadas' ? 'fas fa-align-justify' :
-                'fas fa-tools'
+                topic === 'SQL vs NoSQL' ? 'fas fa-database' : 
+                topic === 'Banco de Documentos' ? 'fas fa-file-code' : 
+                topic === 'Banco de Chave-Valor' ? 'fas fa-key' : 
+                topic === 'Banco de Coluna Larga' ? 'fas fa-columns' : 
+                topic === 'Banco de Grafos' ? 'fas fa-project-diagram' :
+                topic === 'Fundamentos de BD' ? 'fas fa-info-circle' :
+                'fas fa-server'
               }></i>
             </div>
             <h3 className="text-xl font-bold mb-2">{topic}</h3>
@@ -215,19 +213,19 @@ const App: React.FC = () => {
     let iconColor = "";
 
     if (percentage === 100) {
-      message = "Arquiteto Sênior! Você domina completamente estes conceitos.";
+      message = "Especialista em Dados! Você domina completamente estes conceitos.";
       icon = "fa-trophy";
       iconColor = "text-yellow-500";
     } else if (percentage >= 70) {
-      message = "Excelente nível técnico! Você está no caminho certo.";
+      message = "Excelente nível técnico! Você entende bem as nuances dos bancos de dados.";
       icon = "fa-medal";
       iconColor = "text-blue-500";
     } else if (percentage >= 50) {
-      message = "Bom conhecimento base. Continue estudando para atingir a senioridade.";
+      message = "Bom conhecimento base. Continue estudando para dominar a persistência de dados.";
       icon = "fa-check-double";
       iconColor = "text-green-500";
     } else {
-      message = "A base é fundamental. Revise os conceitos teóricos e tente novamente.";
+      message = "A base é fundamental. Revise os modelos de dados e tente novamente.";
       icon = "fa-book-reader";
       iconColor = "text-orange-500";
     }
@@ -287,7 +285,7 @@ const App: React.FC = () => {
       </main>
 
       <footer className={`mt-auto py-8 text-center text-sm ${isDarkMode ? 'text-slate-500' : 'text-gray-400'}`}>
-        <p>© 2024 Arquiteto Sênior: Guia Teórico de Software</p>
+        <p>© 2024 Mestre dos Bancos de Dados: Guia de SQL & NoSQL</p>
       </footer>
     </div>
   );

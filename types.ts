@@ -1,13 +1,11 @@
 
 export type Topic = 
-  | 'Design Patterns' 
-  | 'DDD' 
-  | 'Arquitetura Monolítica' 
-  | 'Microsserviços' 
-  | 'Padrão MVC' 
-  | 'Frameworks' 
-  | 'Arquitetura em Camadas' 
-  | 'Refatoração';
+  | 'SQL vs NoSQL' 
+  | 'Banco de Documentos' 
+  | 'Banco de Chave-Valor' 
+  | 'Banco de Coluna Larga' 
+  | 'Banco de Grafos' 
+  | 'Fundamentos de BD';
 
 export interface Question {
   id: string;
