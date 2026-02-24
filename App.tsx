@@ -115,6 +115,10 @@ const App: React.FC = () => {
     });
   };
 
+  const handleClearExamSelection = () => {
+    setSelectedForExam([]);
+  };
+
   const renderTopicSelection = () => (
     <div className="max-w-4xl mx-auto px-4 py-12 text-center animate-in fade-in duration-700">
       <h2 className={`text-3xl md:text-4xl font-extrabold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
@@ -280,6 +284,7 @@ const App: React.FC = () => {
             selectedIds={selectedForExam}
             onToggleSelection={toggleSelectForExam}
             onSelectMultiple={handleSelectMultiple}
+            onClearSelection={handleClearExamSelection}
           />
         )}
       </main>

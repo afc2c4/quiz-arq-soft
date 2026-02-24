@@ -8,11 +8,22 @@ interface ExamBuilderProps {
   selectedIds: string[];
   onToggleSelection: (id: string) => void;
   onSelectMultiple: (ids: string[]) => void;
+  onClearSelection: () => void;
 }
 
-const ExamBuilder: React.FC<ExamBuilderProps> = ({ isDarkMode, selectedIds, onToggleSelection, onSelectMultiple }) => {
+const ExamBuilder: React.FC<ExamBuilderProps> = ({ isDarkMode, selectedIds, onToggleSelection, onSelectMultiple, onClearSelection }) => {
   const [filterTopic, setFilterTopic] = useState<Topic | 'Todos'>('Todos');
   const [showPreview, setShowPreview] = useState(false);
+  const [shuffledExam, setShuffledExam] = useState<Question[] | null>(null);
+
+  const shuffleArray = <T,>(array: T[]): T[] => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
 
   // Extração dinâmica de tópicos para evitar falhas de sincronização
   const dynamicTopics = useMemo(() => {
@@ -33,11 +44,47 @@ const ExamBuilder: React.FC<ExamBuilderProps> = ({ isDarkMode, selectedIds, onTo
   };
 
   const generateExamText = () => {
-    const selectedQuestions = QUIZ_DATABASE.filter(q => selectedIds.includes(q.id));
-    return selectedQuestions.map((q, index) => {
+    let questionsToUse = shuffledExam || QUIZ_DATABASE.filter(q => selectedIds.includes(q.id));
+    
+    // Garantir que a lista esteja sempre organizada por tópico se não for o objeto embaralhado já processado
+    if (!shuffledExam) {
+      questionsToUse = [...questionsToUse].sort((a, b) => a.topic.localeCompare(b.topic));
+    }
+
+    const examContent = questionsToUse.map((q, index) => {
       const optionsText = q.options.map((opt, i) => `${String.fromCharCode(65 + i)}) ${opt}`).join('\n');
       return `${index + 1}. ${q.question}\n${optionsText}\n`;
     }).join('\n');
+
+    const answerKey = "\n\n--- GABARITO ---\n\n" + questionsToUse.map((q, index) => {
+      return `${index + 1}) ${String.fromCharCode(65 + q.correctAnswer)}`;
+    }).join('\n');
+
+    return examContent + answerKey;
+  };
+
+  const handleGenerateShuffled = () => {
+    const selectedQuestions = QUIZ_DATABASE
+      .filter(q => selectedIds.includes(q.id))
+      .sort((a, b) => a.topic.localeCompare(b.topic));
+      
+    const processed = selectedQuestions.map(q => {
+      const originalCorrectOption = q.options[q.correctAnswer];
+      const newOptions = shuffleArray(q.options);
+      const newCorrectIndex = newOptions.indexOf(originalCorrectOption);
+      return {
+        ...q,
+        options: newOptions,
+        correctAnswer: newCorrectIndex
+      };
+    });
+    setShuffledExam(processed);
+    setShowPreview(true);
+  };
+
+  const handleShowNormalPreview = () => {
+    setShuffledExam(null);
+    setShowPreview(true);
   };
 
   const copyToClipboard = () => {
@@ -59,6 +106,13 @@ const ExamBuilder: React.FC<ExamBuilderProps> = ({ isDarkMode, selectedIds, onTo
         
         <div className="flex flex-wrap items-center gap-3">
           <button 
+            onClick={onClearSelection}
+            className={`px-4 py-2 rounded-xl text-sm font-bold border transition-all ${isDarkMode ? 'border-red-900/30 hover:bg-red-900/20 text-red-400' : 'border-red-100 hover:bg-red-50 text-red-600'}`}
+          >
+            <i className="fas fa-trash-alt mr-2"></i>
+            Limpar Seleção
+          </button>
+          <button 
             onClick={selectAllFiltered}
             className={`px-4 py-2 rounded-xl text-sm font-bold border transition-all ${isDarkMode ? 'border-slate-700 hover:bg-slate-800 text-slate-300' : 'border-gray-200 hover:bg-gray-50 text-gray-600'}`}
           >
@@ -68,14 +122,26 @@ const ExamBuilder: React.FC<ExamBuilderProps> = ({ isDarkMode, selectedIds, onTo
             <i className="fas fa-check-double"></i>
             <span>{selectedIds.length} selecionadas</span>
           </div>
-          <button 
-            disabled={selectedIds.length === 0}
-            onClick={() => setShowPreview(true)}
-            className={`px-6 py-2 rounded-xl font-bold transition-all transform active:scale-95 flex items-center gap-2
-              ${selectedIds.length === 0 ? 'bg-gray-300 cursor-not-allowed text-gray-500' : 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/30'}`}
-          >
-            <i className="fas fa-eye"></i> Gerar Prévia
-          </button>
+          
+          <div className="flex gap-2">
+            <button 
+              disabled={selectedIds.length === 0}
+              onClick={handleShowNormalPreview}
+              className={`px-4 py-2 rounded-xl font-bold transition-all transform active:scale-95 flex items-center gap-2
+                ${selectedIds.length === 0 ? 'bg-gray-300 cursor-not-allowed text-gray-500' : 'bg-slate-600 hover:bg-slate-700 text-white shadow-lg'}`}
+            >
+              <i className="fas fa-eye"></i> Prévia
+            </button>
+            
+            <button 
+              disabled={selectedIds.length < 10}
+              onClick={handleGenerateShuffled}
+              className={`px-6 py-2 rounded-xl font-bold transition-all transform active:scale-95 flex items-center gap-2
+                ${selectedIds.length < 10 ? 'bg-gray-300 cursor-not-allowed text-gray-500' : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-500/30'}`}
+            >
+              <i className="fas fa-random"></i> Gerar Prova (10+)
+            </button>
+          </div>
         </div>
       </div>
 
@@ -139,9 +205,16 @@ const ExamBuilder: React.FC<ExamBuilderProps> = ({ isDarkMode, selectedIds, onTo
           <div className={`w-full max-w-2xl rounded-3xl shadow-2xl flex flex-col max-h-[90vh] overflow-hidden
             ${isDarkMode ? 'bg-slate-900 border border-slate-700' : 'bg-white'}`}>
             <div className={`p-6 border-b flex justify-between items-center ${isDarkMode ? 'border-slate-800' : 'border-gray-100'}`}>
-              <h3 className={`text-xl font-black ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-                Conteúdo Pronto para DOCX
-              </h3>
+              <div>
+                <h3 className={`text-xl font-black ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                  Conteúdo Pronto para DOCX
+                </h3>
+                {shuffledExam && (
+                  <span className="text-[10px] bg-emerald-500 text-white px-2 py-0.5 rounded-full font-bold uppercase tracking-tighter">
+                    Alternativas Embaralhadas
+                  </span>
+                )}
+              </div>
               <button 
                 onClick={() => setShowPreview(false)}
                 className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${isDarkMode ? 'hover:bg-slate-800 text-slate-400' : 'hover:bg-gray-100 text-gray-500'}`}
